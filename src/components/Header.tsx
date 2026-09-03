@@ -30,7 +30,11 @@ export const Header: React.FC<HeaderProps> = ({
           className="cursor-pointer font-black text-2xl tracking-tighter select-none flex items-center gap-1.5"
           title="Go to Home"
         >
-          <span className="text-2xl">🍿</span>
+          <img
+            src="https://raw.githubusercontent.com/chaitanyakumar-ReDSeC/assets/main/general/image_assets/static/popcorn.png"
+            alt="Popcorn"
+            className="w-6 h-6 object-contain"
+          />
           <div className="flex items-center">
             <span className="text-red-600 font-extrabold">POP</span>
             <span className="text-white font-extrabold">CORN</span>
