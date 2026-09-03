@@ -1,7 +1,6 @@
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
-import { Readable } from "stream";
 
 async function startServer() {
   const app = express();
@@ -45,54 +44,6 @@ async function startServer() {
       res.send(text);
     } catch (err: any) {
       res.status(500).send(err.message || "Failed to fetch subtitle");
-    }
-  });
-
-  // Video proxy endpoint supporting range requests (seeking)
-  app.get("/api/video-proxy", async (req, res) => {
-    const targetUrl = req.query.url as string;
-    if (!targetUrl) {
-      res.status(400).send("Missing url query parameter");
-      return;
-    }
-
-    try {
-      const headers: Record<string, string> = {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) PopCornMedia/1.0",
-      };
-
-      if (req.headers.range) {
-        headers["Range"] = req.headers.range;
-      }
-
-      const response = await fetch(targetUrl, { headers });
-
-      res.status(response.status);
-      
-      // Forward standard headers
-      const forwardHeaders = [
-        "content-type",
-        "content-length",
-        "content-range",
-        "accept-ranges",
-      ];
-      
-      forwardHeaders.forEach((header) => {
-        const val = response.headers.get(header);
-        if (val) res.setHeader(header, val);
-      });
-
-      res.setHeader("Access-Control-Allow-Origin", "*");
-
-      if (response.body) {
-        // @ts-ignore
-        Readable.fromWeb(response.body).pipe(res);
-      } else {
-        res.end();
-      }
-    } catch (err: any) {
-      res.status(500).send(err.message || "Failed to stream video");
     }
   });
 

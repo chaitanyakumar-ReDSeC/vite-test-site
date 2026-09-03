@@ -148,28 +148,13 @@ export default function App() {
       {/* Sleek Interface Footer Status Bar */}
       <footer className="h-10 bg-neutral-950 border-t border-white/5 flex items-center justify-between px-6 text-[10px] text-neutral-500 font-bold uppercase tracking-widest mt-auto">
         <div className="flex items-center gap-1.5">
-          <img
-            src="https://raw.githubusercontent.com/chaitanyakumar-ReDSeC/assets/main/general/image_assets/static/popcorn.png"
-            alt="Popcorn"
-            className="w-6 h-6 object-contain"
-          />
-          <span>POPCORN</span>
+          <span>🍿</span>
+          <span>POPCORN • PRIVATE MEDIA STREAM</span>
         </div>
         <div className="flex items-center space-x-3">
-          <a
-            href="https://github.com/chaitanyakumar-ReDSeC"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-red-600 hover:text-white transition-all duration-200"
-            title="Visit GitHub Profile"
-          >
-            <img
-              src="https://cdn.simpleicons.org/github/ffffff"
-              alt="GitHub"
-              className="w-4 h-4"
-            />
-            <span>chaitanyakumar-ReDSeC</span>
-          </a>
+          <span className="hidden sm:inline-block">RED, BLACK, WHITE INTERFACE</span>
+          <span className="text-red-600">•</span>
+          <span>ENGINE: VIDEO.JS</span>
         </div>
       </footer>
     </div>
