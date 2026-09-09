@@ -12,7 +12,19 @@ interface MovieGridProps {
 export const MovieGrid: React.FC<MovieGridProps> = ({ onPlayMovie, searchQuery, movies }) => {
   const movieList = movies && movies.length > 0 ? movies : MOVIES_DATA;
 
-  const filteredMovies = movieList.filter((movie) => {
+  // Sort movies in ascending order by year from csv field
+  const sortedMovies = React.useMemo(() => {
+    return [...movieList].sort((a, b) => {
+      const yearA = typeof a.year === 'number' ? a.year : parseInt(String(a.year || '0'), 10) || 0;
+      const yearB = typeof b.year === 'number' ? b.year : parseInt(String(b.year || '0'), 10) || 0;
+      if (yearA !== yearB) {
+        return yearA - yearB;
+      }
+      return (a.title || '').localeCompare(b.title || '');
+    });
+  }, [movieList]);
+
+  const filteredMovies = sortedMovies.filter((movie) => {
     return (
       !searchQuery ||
       movie.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -31,8 +43,8 @@ export const MovieGrid: React.FC<MovieGridProps> = ({ onPlayMovie, searchQuery, 
 
       {filteredMovies.length === 0 ? (
         <div className="bg-neutral-900 border border-white/5 rounded-xl p-12 text-center text-neutral-400">
-          <p className="text-base font-bold text-white">No Movies in Catalog</p>
-          <p className="text-xs mt-1 text-neutral-400">Add movie records to movies.csv or stream directly using Private Screen.</p>
+          <p className="text-base font-bold text-white">No Movies Found</p>
+          <p className="text-xs mt-1 text-neutral-400">Coming soon.</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
